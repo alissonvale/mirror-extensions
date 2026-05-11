@@ -14,7 +14,7 @@ An identifiable place where money lives.
 | Column | Type | Null | Default | Notes |
 |---|---|---|---|---|
 | `id` | TEXT | no | — | PRIMARY KEY. 8-char hex from `uuid4().hex[:8]`. |
-| `name` | TEXT | no | — | Human-friendly name (e.g. `Itaú PF`, `Nubank RDB`). |
+| `name` | TEXT | no | — | Human-friendly name (e.g. `Personal Checking`, `Business Reserve`). |
 | `bank` | TEXT | yes | — | Bank name. |
 | `agency` | TEXT | yes | — | Branch number. |
 | `account_number` | TEXT | yes | — | Masked or last-N digits; used for auto-match in importers. |

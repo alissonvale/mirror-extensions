@@ -24,17 +24,17 @@ recorded bills or transaction history.
 - `python -m memory ext finances runway [--include-liquidity liquid,semi_liquid] [--burn-source bills|history]` — compute runway.
 - `python -m memory ext finances report [--account <id>]` — monthly income/expense/net.
 - `python -m memory ext finances categorize <transaction-id> <category>` — categorize a transaction.
-- `python -m memory ext finances migrate-legacy --source <path>` — import all data from a legacy `~/.espelho/memoria.db`.
+- `python -m memory ext finances migrate-legacy --source <path>` — import all data from a legacy mirror SQLite database that carries the `eco_*` schema.
 
 ## When the agent should use this
 
 User queries about money — balances, runway, burn, spending categories,
 imports of bank statements or credit card statements, recurring bills,
-runway projections — should route to this extension. The `tesoureira`
-(or `treasurer`) persona has the `financial_summary` capability bound,
-so a live summary is injected into Mirror Mode automatically when she
-is active; the agent does not need to call commands explicitly to
-ground its answer in current numbers.
+runway projections — should route to this extension. A finance-aware
+persona (e.g. `treasurer`) can have the `financial_summary` capability
+bound, in which case a live summary is injected into Mirror Mode
+automatically when that persona is active; the agent does not need to
+call commands explicitly to ground its answer in current numbers.
 
 For specific lookups (a single transaction, a category breakdown, a
 runway calculation under different assumptions), call the relevant

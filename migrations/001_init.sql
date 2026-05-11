@@ -1,7 +1,8 @@
 -- Initial schema for the finances extension.
 --
--- Designed to receive the legacy mirror-poc `eco_*` data set without
--- shape changes: the same columns, same types, same constraints.
+-- Designed to receive the legacy `eco_*` data set used by earlier
+-- mirror prototypes without shape changes: the same columns, same
+-- types, same constraints.
 -- The only thing that moves is the table prefix (eco_ -> ext_finances_)
 -- and the table that drops the legacy `eco_recurring_bills` 'category'
 -- field overload by keeping it as-is (it carries 'fixed' | 'variable',

@@ -9,8 +9,7 @@
 --   1 active recurring bill
 --   1 inactive recurring bill
 --
--- The structure mirrors the real legacy schema verbatim (see
--- ~/Code/mirror-poc/economy/db.py).
+-- The structure mirrors the legacy schema verbatim.
 
 CREATE TABLE eco_accounts (
     id TEXT PRIMARY KEY,

@@ -30,7 +30,7 @@ python -m memory ext finances accounts            # list all accounts
 python -m memory ext finances balance             # current balance per account
 python -m memory ext finances runway              # liquid balance / monthly burn
 python -m memory ext finances report              # monthly income / expense / net
-python -m memory ext finances migrate-legacy --source ~/.espelho/memoria.db
+python -m memory ext finances migrate-legacy --source <legacy-db-path>
 ```
 
 Full reference in [docs/commands.md](docs/commands.md).
@@ -38,15 +38,15 @@ Full reference in [docs/commands.md](docs/commands.md).
 ## Mirror Mode integration
 
 ```bash
-python -m memory ext finances bind financial_summary --persona tesoureira
+python -m memory ext finances bind financial_summary --persona treasurer
 ```
 
 Any Mirror Mode turn that routes to the bound persona now includes a
 live financial summary in the prompt under
 `=== extension/finances/financial_summary ===`. See
 [docs/bindings.md](docs/bindings.md) for the full binding workflow and
-[docs/persona-recipes.md](docs/persona-recipes.md) for a suggested
-persona briefing.
+[docs/persona-recipes.md](docs/persona-recipes.md) for suggested
+persona briefings.
 
 ## Documentation
 
@@ -56,8 +56,9 @@ persona briefing.
 - [Data model](docs/data-model.md) — every table this extension owns.
 - [Bindings](docs/bindings.md) — the `financial_summary` capability.
 - [Migrations](docs/migrations.md) — schema evolution history.
-- [Legacy migration](docs/legacy-migration.md) — how to move data
-  from the legacy `~/.espelho/memoria.db`.
+- [Legacy migration](docs/legacy-migration.md) — how to import data
+  from a legacy mirror SQLite database that carries the `eco_*`
+  schema.
 - [Persona recipes](docs/persona-recipes.md) — suggested briefings.
 - [User stories](docs/user-stories/README.md) — the road that brought
   this extension to its current shape.

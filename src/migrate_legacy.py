@@ -1,8 +1,9 @@
 """Copy a legacy mirror finance dataset into the extension's tables.
 
-The legacy data lives in a separate SQLite database (typically
-``~/.espelho/memoria.db``) under the ``eco_*`` table prefix. The
-target tables in the active mirror live under ``ext_finances_*``.
+The legacy data lives in a separate SQLite database (the path is
+supplied by the operator at run time via ``--source``) under the
+``eco_*`` table prefix. The target tables in the active mirror live
+under ``ext_finances_*``.
 The two schemas are column-isomorphic: this module is a pure
 table-by-table copy, not an interpretation. See
 ``docs/user-stories/US-11-migrate-legacy-data.md`` for the user

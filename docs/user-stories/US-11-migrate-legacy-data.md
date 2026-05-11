@@ -7,7 +7,7 @@
 ## Story
 
 **As a** user who carries years of financial data in a legacy mirror
-database (`~/.espelho/memoria.db`, schema `eco_*`),
+SQLite database that uses the `eco_*` schema,
 **I want** a single command that copies every legacy account,
 transaction, balance snapshot, and recurring bill into this
 extension's tables,
@@ -23,13 +23,12 @@ migration must be a copy, not an interpretation.
 
 ### Acceptance value
 
-- `python -m memory ext finances migrate-legacy --source ~/.espelho/memoria.db [--dry-run]`
+- `python -m memory ext finances migrate-legacy --source <legacy-db-path> [--dry-run]`
 - Dry-run reports the count it **would** import per table.
 - Real run imports and reports the count it **did** import per table.
 - Idempotent: re-running imports 0 rows.
 - After a successful real run, the user's mirror database contains the
-  full legacy data set (18 accounts, 554 transactions, 68 snapshots,
-  41 recurring bills) under the new prefix, ready for every other
+  full legacy data set under the new prefix, ready for every other
   story.
 
 ### Why this story runs first
@@ -120,15 +119,15 @@ python -m memory ext finances migrate-legacy --source <path> [--dry-run]
 Real run:
 
 ```
-Migrating from /Users/alissonvale/.espelho/memoria.db ...
+Migrating from <legacy-db-path> ...
 
-  ext_finances_accounts            18 imported, 0 skipped
-  ext_finances_categories          0  imported, 0 skipped
-  ext_finances_balance_snapshots   68 imported, 0 skipped
-  ext_finances_transactions        554 imported, 0 skipped
-  ext_finances_recurring_bills     41 imported, 0 skipped
+  ext_finances_accounts             N imported, 0 skipped
+  ext_finances_categories           N imported, 0 skipped
+  ext_finances_balance_snapshots    N imported, 0 skipped
+  ext_finances_transactions         N imported, 0 skipped
+  ext_finances_recurring_bills      N imported, 0 skipped
 
-Total: 681 rows imported.
+Total: N rows imported.
 ```
 
 Dry-run:
@@ -149,7 +148,7 @@ Total: 681 rows would be imported.
 - **Synthetic legacy fixture** (`tests/fixtures/legacy_seed.sql`):
   builds a small legacy database (3 accounts, 5 transactions, 2
   snapshots, 1 recurring bill) with the legacy schema. Tests run
-  against it, never against `~/.espelho/`.
+  against it, never against any real legacy database.
 
 - **Happy path:**
   - Migration imports the expected counts per table.
@@ -190,29 +189,20 @@ Total: 681 rows would be imported.
 After implementation, the developer runs:
 
 ```
-python -m memory ext finances migrate-legacy --source ~/.espelho/memoria.db --dry-run
+python -m memory ext finances migrate-legacy --source <legacy-db-path> --dry-run
 ```
 
-against the real legacy file and confirms the expected counts:
-
-```
-accounts: 18
-categories: 0
-balance_snapshots: 68
-transactions: 554
-recurring_bills: 41
-```
-
-Then runs the real migration and confirms a follow-up dry-run reports
-zero pending rows.
+against their real legacy file and confirms the counts match the
+row counts in the source database. Then runs the real migration and
+confirms a follow-up dry-run reports zero pending rows.
 
 ### Done criteria
 
 - [ ] `migrate-legacy --dry-run` reports correct counts against the
       synthetic fixture.
 - [ ] Real migration against the fixture passes every test above.
-- [ ] Smoke test against the real `~/.espelho/memoria.db` matches
-      expected counts.
+- [ ] Smoke test against a real legacy database matches expected
+      counts.
 - [ ] Re-run after success imports zero rows.
 - [ ] `docs/legacy-migration.md` describes the procedure end to end
       with a worked example.

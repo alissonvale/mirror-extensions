@@ -19,7 +19,10 @@ runtimes:
 mirror_context_providers:
   - id: financial_summary
     description: "Live financial summary: balances by liquidity bucket, monthly cash flow, monthly burn, runway."
-    suggested_personas: [tesoureira, treasurer, cfo, founder]
+    suggested_personas: [treasurer, cfo, founder]
+    # Localized persona names are also valid; see docs/persona-recipes.md
+    # for an example of binding this capability to a Portuguese-named
+    # persona ("tesoureira").
 
 requires:
   extension_api: ">=1.0,<2.0"

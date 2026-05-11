@@ -1,9 +1,10 @@
 """Tests for the legacy-data migration (US-11).
 
 These tests run the migration end to end against a synthetic legacy
-database. The real ``~/.espelho/memoria.db`` is never touched by
-automated tests; a smoke step against it is performed manually after
-the implementation lands and documented in the user story.
+database built fresh per test from ``tests/fixtures/legacy_seed.sql``.
+Real legacy data is never touched by automated tests; a smoke step
+against a real legacy database is performed manually after the
+implementation lands and documented in the user story.
 """
 
 from __future__ import annotations

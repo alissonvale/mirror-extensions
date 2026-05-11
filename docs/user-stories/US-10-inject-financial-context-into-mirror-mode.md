@@ -7,7 +7,7 @@
 ## Story
 
 **As a** user talking to the mirror through a financially-aware
-persona (e.g. `tesoureira`),
+persona (e.g. `treasurer`, or a localized name such as `tesoureira`),
 **I want** the live state of my finances injected into the prompt
 automatically,
 **so that** the persona answers grounded in current numbers without
@@ -19,8 +19,8 @@ documents the binding workflow end to end.
 
 ### Acceptance value
 
-- `python -m memory ext finances bind financial_summary --persona tesoureira`
-- A Mirror Mode turn with `tesoureira` active includes
+- `python -m memory ext finances bind financial_summary --persona treasurer`
+- A Mirror Mode turn with the bound persona active includes
   `=== extension/finances/financial_summary ===` followed by the live
   summary: liquid / semi-liquid totals, monthly cash flow rows, burn,
   runway.
@@ -36,8 +36,9 @@ documents the binding workflow end to end.
   as a tight markdown block.
 - `extension.py`: `_provide_financial_summary` calls
   `financial_context_text()`.
-- `docs/persona-recipes.md`: documents the recommended briefing for a
-  `tesoureira` persona and the bind command.
+- `docs/persona-recipes.md`: documents recommended briefings for
+  finance personas (English `treasurer`, Portuguese `tesoureira`)
+  and the bind command.
 
 ## Test Guide
 

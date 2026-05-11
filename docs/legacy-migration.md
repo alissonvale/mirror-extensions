@@ -4,9 +4,12 @@
 
 This document is the user-facing procedure for the work specified in
 [US-11](user-stories/US-11-migrate-legacy-data.md). It describes how
-to move a complete financial data set from the legacy mirror database
-(`~/.espelho/memoria.db`, schema `eco_*`) into this extension's tables
+to move a complete financial data set from a legacy mirror SQLite
+database that carries the `eco_*` schema into this extension's tables
 under the active mirror.
+
+Throughout this document `<legacy-db-path>` is the path to that
+legacy file on your machine.
 
 ## Scope
 
@@ -44,22 +47,22 @@ Always run dry first:
 
 ```bash
 python -m memory ext finances migrate-legacy \
-  --source ~/.espelho/memoria.db \
+  --source <legacy-db-path> \
   --dry-run
 ```
 
-Expected output for the canonical legacy data set:
+Expected output (counts depend on your legacy data set):
 
 ```
 Dry run — no changes will be written.
 
-  ext_finances_accounts            18 would be imported
-  ext_finances_categories          0  would be imported
-  ext_finances_balance_snapshots   68 would be imported
-  ext_finances_transactions        554 would be imported
-  ext_finances_recurring_bills     41 would be imported
+  ext_finances_accounts             N would be imported
+  ext_finances_categories           N would be imported
+  ext_finances_balance_snapshots    N would be imported
+  ext_finances_transactions         N would be imported
+  ext_finances_recurring_bills      N would be imported
 
-Total: 681 rows would be imported.
+Total: N rows would be imported.
 ```
 
 If the numbers do not look right, **stop**. Re-run the dry-run after
@@ -69,7 +72,7 @@ investigating; do not apply.
 
 ```bash
 python -m memory ext finances migrate-legacy \
-  --source ~/.espelho/memoria.db
+  --source <legacy-db-path>
 ```
 
 The output matches the dry-run but with `imported` in place of
@@ -83,7 +86,7 @@ After a successful apply:
 ```bash
 # Counts should match the dry-run.
 python -m memory ext finances migrate-legacy \
-  --source ~/.espelho/memoria.db \
+  --source <legacy-db-path> \
   --dry-run
 # expected: every table reports 0 would be imported.
 ```
