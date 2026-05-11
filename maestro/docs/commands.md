@@ -27,7 +27,7 @@ Pi/Mirror loads the installed copy from:
 
 ```bash
 uv run python -m memory ext maestro check --journey maestro
-uv run python -m memory ext maestro check --journey sandbox-pet-food
+uv run python -m memory ext maestro check --journey sandbox-pet-store
 ```
 
 `check` resolves the journey's `project_path`, evaluates the base lens, updates
@@ -38,7 +38,7 @@ uv run python -m memory ext maestro check --journey sandbox-pet-food
 
 ```bash
 uv run python -m memory ext maestro configure \
-  --journey sandbox-pet-food \
+  --journey sandbox-pet-store \
   --locale pt-BR \
   --mode technical
 ```
@@ -57,7 +57,7 @@ project name.
 
 ```bash
 uv run python -m memory ext maestro init \
-  --journey sandbox-pet-food \
+  --journey sandbox-pet-store \
   --name "Sandbox"
 ```
 
@@ -75,7 +75,7 @@ docs/coherence/index.md
 Every command also accepts `--root` for one-off use:
 
 ```bash
-uv run python -m memory ext maestro check --root ~/Code/sandbox-pet-food
+uv run python -m memory ext maestro check --root ~/Code/sandbox-pet-store
 uv run python -m memory ext maestro init --root ~/Code/new-project --name "New Project"
 ```
 
@@ -96,30 +96,30 @@ sqlite3 ~/.mirror/<user>/memory.db \
 
 ```bash
 # 1. Create project folder
-mkdir -p ~/Code/sandbox-pet-food
+mkdir -p ~/Code/sandbox-pet-store
 
 # 2. Ensure the journey points to it
-uv run python -m memory journey set-path sandbox-pet-food ~/Code/sandbox-pet-food
+uv run python -m memory journey set-path sandbox-pet-store ~/Code/sandbox-pet-store
 
 # 3. Bind automatic Mirror Mode context
-uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-food
+uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-store
 
 # 4. Configure human surface
 uv run python -m memory ext maestro configure \
-  --journey sandbox-pet-food \
+  --journey sandbox-pet-store \
   --locale pt-BR \
   --mode technical
 
 # 5. Resolve the project-name UoC
 uv run python -m memory ext maestro init \
-  --journey sandbox-pet-food \
+  --journey sandbox-pet-store \
   --name "Sandbox"
 
 # 6. Check current coherence
-uv run python -m memory ext maestro check --journey sandbox-pet-food
+uv run python -m memory ext maestro check --journey sandbox-pet-store
 ```
 
-The current expected result for Sandbox Pet Food is:
+The current expected result for Sandbox Pet Store is:
 
 ```text
 ✓ UoC-001 Project working name: resolved
@@ -130,8 +130,8 @@ The current expected result for Sandbox Pet Food is:
 Resolve `UoC-002` with:
 
 ```bash
-cd ~/Code/sandbox-pet-food
+cd ~/Code/sandbox-pet-store
 git init
 cd ~/Code/mirror
-uv run python -m memory ext maestro check --journey sandbox-pet-food
+uv run python -m memory ext maestro check --journey sandbox-pet-store
 ```

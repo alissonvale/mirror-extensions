@@ -22,8 +22,8 @@ journey/maestro
   -> ~/Code/mirror-extensions/maestro
   -> source-code development of this extension
 
-journey/sandbox-pet-food
-  -> ~/Code/sandbox-pet-food
+journey/sandbox-pet-store
+  -> ~/Code/sandbox-pet-store
   -> example online pet food store built using Maestro
 
 ~/.mirror/<user>/extensions/maestro
@@ -42,11 +42,11 @@ uv run python -m memory extensions install maestro \
 ## Quick setup for a journey
 
 ```bash
-uv run python -m memory journey set-path sandbox-pet-food ~/Code/sandbox-pet-food
-uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-food
-uv run python -m memory ext maestro configure --journey sandbox-pet-food --locale pt-BR --mode technical
-uv run python -m memory ext maestro init --journey sandbox-pet-food --name "Sandbox"
-uv run python -m memory ext maestro check --journey sandbox-pet-food
+uv run python -m memory journey set-path sandbox-pet-store ~/Code/sandbox-pet-store
+uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-store
+uv run python -m memory ext maestro configure --journey sandbox-pet-store --locale pt-BR --mode technical
+uv run python -m memory ext maestro init --journey sandbox-pet-store --name "Sandbox"
+uv run python -m memory ext maestro check --journey sandbox-pet-store
 ```
 
 ## Documentation

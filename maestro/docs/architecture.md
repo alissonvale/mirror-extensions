@@ -10,7 +10,7 @@ the target project.
 |---|---|---|
 | Extension source | `~/Code/mirror-extensions/maestro` | Where the Maestro extension is developed. Commit source changes here. |
 | Installed runtime | `~/.mirror/<user>/extensions/maestro` | Copy loaded by Pi/Mirror at runtime after `extensions install`. Do not edit directly. |
-| Journey target project | `~/Code/sandbox-pet-food` | A project observed or bootstrapped by Maestro through its journey `project_path`. |
+| Journey target project | `~/Code/sandbox-pet-store` | A project observed or bootstrapped by Maestro through its journey `project_path`. |
 
 The installed runtime is the executable copy. The source tree is the versioned
 copy. The target project is the work being kept coherent.
@@ -22,8 +22,8 @@ journey/maestro
   -> ~/Code/mirror-extensions/maestro
   -> source-code development of this extension
 
-journey/sandbox-pet-food
-  -> ~/Code/sandbox-pet-food
+journey/sandbox-pet-store
+  -> ~/Code/sandbox-pet-store
   -> example online pet food store, built using Maestro
 
 ~/.mirror/<user>/extensions/maestro

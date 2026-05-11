@@ -34,7 +34,7 @@ Current mappings:
 
 ```text
 journey/maestro          -> ~/Code/mirror-extensions/maestro
-journey/sandbox-pet-food -> ~/Code/sandbox-pet-food
+journey/sandbox-pet-store -> ~/Code/sandbox-pet-store
 ```
 
 The installed runtime is separate:
@@ -65,7 +65,7 @@ Bind the capability to any journey that should receive automatic coherence statu
 
 ```bash
 uv run python -m memory ext maestro bind coherence_status --journey maestro
-uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-food
+uv run python -m memory ext maestro bind coherence_status --journey sandbox-pet-store
 ```
 
 The provider always injects when the active journey is bound and the project path is configured. It never raises into Mirror Mode; failures return no block and are logged.
