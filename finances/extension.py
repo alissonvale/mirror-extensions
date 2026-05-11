@@ -30,15 +30,38 @@ if str(_EXTENSION_ROOT) not in sys.path:
 
 from memory.extensions.api import ContextRequest, ExtensionAPI  # noqa: E402
 
+from src.cli.accounts import cmd_accounts  # noqa: E402
+from src.cli.balance import cmd_balance, cmd_snapshot  # noqa: E402
+from src.cli.bills import cmd_bills  # noqa: E402
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
 from src.reports import financial_context_text  # noqa: E402
 
 
 def register(api: ExtensionAPI) -> None:
     api.register_cli(
+        "accounts",
+        cmd_accounts,
+        summary="Register and list accounts (US-01)",
+    )
+    api.register_cli(
+        "balance",
+        cmd_balance,
+        summary="Show latest balance per account (US-02)",
+    )
+    api.register_cli(
+        "snapshot",
+        cmd_snapshot,
+        summary="Record a balance snapshot for an account (US-02)",
+    )
+    api.register_cli(
+        "bills",
+        cmd_bills,
+        summary="Manage recurring bills (US-06)",
+    )
+    api.register_cli(
         "migrate-legacy",
         cmd_migrate_legacy,
-        summary="Migrate legacy mirror finance data into ext_finances_* tables",
+        summary="Migrate legacy mirror finance data into ext_finances_* tables (US-11)",
     )
     api.register_mirror_context("financial_summary", _provide_financial_summary)
 
