@@ -2,7 +2,7 @@
 
 # US-11 — Migrate legacy data
 
-**Status:** 🎯 Next
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

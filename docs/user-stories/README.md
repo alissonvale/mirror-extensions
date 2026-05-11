@@ -13,7 +13,7 @@ production-shape numbers from its first test run.
 
 | # | Story | Status |
 |---|-------|--------|
-| US-11 | [Migrate legacy data](US-11-migrate-legacy-data.md) | 🎯 Next |
+| US-11 | [Migrate legacy data](US-11-migrate-legacy-data.md) | ✅ Done |
 | US-01 | [Register and list accounts](US-01-register-and-list-accounts.md) | ⚪ Planned |
 | US-02 | [Record balance snapshot](US-02-record-balance-snapshot.md) | ⚪ Planned |
 | US-05 | [List and filter transactions](US-05-list-and-filter-transactions.md) | ⚪ Planned |
