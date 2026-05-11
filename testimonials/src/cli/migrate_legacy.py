@@ -15,15 +15,15 @@ if TYPE_CHECKING:
     from memory.extensions.api import ExtensionAPI
 
 
-def cmd_migrate_legacy(api: "ExtensionAPI", args: list[str]) -> int:
+def cmd_migrate_legacy(api: ExtensionAPI, args: list[str]) -> int:
     """Import testimonials from a legacy mirror SQLite database."""
     parsed = _parse_args(args)
     if parsed is None:
         return 1
 
     source, dry_run = parsed
-    header = "Dry run — no changes will be written." if dry_run else (
-        f"Migrating from {source} ..."
+    header = (
+        "Dry run — no changes will be written." if dry_run else (f"Migrating from {source} ...")
     )
     print(header)
     print()
@@ -33,7 +33,7 @@ def cmd_migrate_legacy(api: "ExtensionAPI", args: list[str]) -> int:
     except LegacyMigrationError as exc:
         print(f"error: {exc}")
         return 1
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         print(f"error: migration failed: {exc}")
         return 1
 
@@ -69,10 +69,7 @@ def _parse_args(args: list[str]) -> tuple[Path, bool] | None:
 
 
 def _print_usage() -> None:
-    print(
-        "usage: python -m memory ext testimonials migrate-legacy "
-        "--source <path> [--dry-run]"
-    )
+    print("usage: python -m memory ext testimonials migrate-legacy --source <path> [--dry-run]")
 
 
 def _print_result(result: MigrationResult) -> None:

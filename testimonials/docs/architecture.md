@@ -16,6 +16,7 @@ testimonials/
 │   ├── parse.py               -- LLM-driven free-text extractor
 │   ├── search.py              -- cosine similarity + ranking
 │   ├── migrate_legacy.py      -- legacy SQLite copier
+│   ├── context.py             -- recent_testimonials Mirror Mode provider
 │   └── cli/
 │       ├── add.py             -- US-01
 │       ├── list.py            -- US-02
@@ -69,12 +70,24 @@ validate that the `testimonials` table exists, copy missing rows
 inside a single `api.transaction()` savepoint. Embeddings are passed
 through verbatim — no re-embedding, no transformation.
 
-## Why no Mirror Mode context provider?
+## Mirror Mode capability: `recent_testimonials`
 
-Testimonials are queried, not always shown. Injecting a "recent
-testimonials" block into every Mirror Mode turn would pollute most
-conversations.
+The extension registers one Mirror Mode capability (US-05) in
+`src/context.py`. It is **query-driven**: the provider only injects
+a block when the current user query semantically matches at least
+one stored testimonial above a relevance floor. With no query, an
+empty archive, or no relevant hits, the provider returns `None` and
+the framework injects nothing — Mirror Mode stays clean for
+unrelated conversations.
 
-A future capability could expose targeted testimonials (e.g. the top
-3 hits for the active journey's name) for personas working on
-copy/launch. That story is deliberately not scoped yet.
+The alternative (always inject the most recent N testimonials)
+would pollute every turn of the bound persona regardless of topic.
+That is the failure mode the framework's binding model exists to
+avoid, so the design choice was to lean on semantic search.
+
+Exceptions inside the provider are caught and logged; the provider
+returns `None` rather than letting Mirror Mode crash on a
+testimonials hiccup.
+
+See [docs/bindings.md](bindings.md) for recommended bindings and
+tuning.

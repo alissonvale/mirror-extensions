@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-
 from src.search import cosine_similarity, search_testimonials
 from src.store_writes import insert_testimonial
 
@@ -82,11 +81,7 @@ def test_search_ranks_by_similarity(testimonials_api, deterministic_embedder):
 def test_search_respects_limit(testimonials_api, deterministic_embedder):
     for idx in range(5):
         vec = deterministic_embedder(f"text-{idx}")
-        blob = (
-            np.asarray(vec, dtype=np.float32).tobytes()
-            if not isinstance(vec, bytes)
-            else vec
-        )
+        blob = np.asarray(vec, dtype=np.float32).tobytes() if not isinstance(vec, bytes) else vec
         insert_testimonial(
             testimonials_api,
             author_name=f"A{idx}",
@@ -100,12 +95,8 @@ def test_search_respects_limit(testimonials_api, deterministic_embedder):
 def test_search_skips_rows_without_embedding(testimonials_api, deterministic_embedder):
     vec = deterministic_embedder("good content")
     blob = np.asarray(vec, dtype=np.float32).tobytes() if not isinstance(vec, bytes) else vec
-    insert_testimonial(
-        testimonials_api, author_name="With", content="good content", embedding=blob
-    )
-    insert_testimonial(
-        testimonials_api, author_name="Without", content="other", embedding=None
-    )
+    insert_testimonial(testimonials_api, author_name="With", content="good content", embedding=blob)
+    insert_testimonial(testimonials_api, author_name="Without", content="other", embedding=None)
     results = search_testimonials(testimonials_api, "good content", limit=5)
     authors = [t.author_name for t, _ in results]
     assert "With" in authors

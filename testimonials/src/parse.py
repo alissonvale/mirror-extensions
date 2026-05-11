@@ -71,7 +71,7 @@ Return ONLY a JSON object, no markdown fences, no commentary:
 """
 
 
-def parse_testimonial(api: "ExtensionAPI", text: str) -> dict:
+def parse_testimonial(api: ExtensionAPI, text: str) -> dict:
     """Run the LLM extraction and return a dict with normalised fields.
 
     The dict always contains the seven documented keys; missing or
@@ -84,7 +84,7 @@ def parse_testimonial(api: "ExtensionAPI", text: str) -> dict:
 
     try:
         raw = api.llm(prompt, family="gemini", tier="flash")
-    except Exception as exc:  # noqa: BLE001 — LLM failures must not break add
+    except Exception as exc:
         api.log("warning", "LLM call failed; using fallback record", error=str(exc))
         return _fallback(text, today)
 

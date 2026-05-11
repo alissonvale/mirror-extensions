@@ -24,8 +24,7 @@ class LegacyMigrationError(RuntimeError):
 _LEGACY_TABLE = "testimonials"
 _NEW_TABLE = "ext_testimonials_records"
 _COLUMNS = (
-    "id, author_name, content, source, product, highlight, tags, "
-    "received_at, created_at, embedding"
+    "id, author_name, content, source, product, highlight, tags, received_at, created_at, embedding"
 )
 
 
@@ -56,17 +55,13 @@ def _open_legacy_readonly(source: Path) -> sqlite3.Connection:
 
 
 def _validate_legacy(legacy: sqlite3.Connection) -> None:
-    rows = legacy.execute(
-        "SELECT name FROM sqlite_master WHERE type='table'"
-    ).fetchall()
+    rows = legacy.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall()
     if not any(row["name"] == _LEGACY_TABLE for row in rows):
-        raise LegacyMigrationError(
-            f"legacy database is missing required table: {_LEGACY_TABLE}"
-        )
+        raise LegacyMigrationError(f"legacy database is missing required table: {_LEGACY_TABLE}")
 
 
 def migrate_legacy(
-    api: "ExtensionAPI",
+    api: ExtensionAPI,
     *,
     source: Path,
     dry_run: bool = False,
@@ -81,15 +76,8 @@ def migrate_legacy(
     legacy = _open_legacy_readonly(source)
     try:
         _validate_legacy(legacy)
-        existing_ids = {
-            row[0]
-            for row in api.read(
-                f"SELECT id FROM {_NEW_TABLE}"
-            ).fetchall()
-        }
-        rows = legacy.execute(
-            f"SELECT {_COLUMNS} FROM {_LEGACY_TABLE}"
-        ).fetchall()
+        existing_ids = {row[0] for row in api.read(f"SELECT id FROM {_NEW_TABLE}").fetchall()}
+        rows = legacy.execute(f"SELECT {_COLUMNS} FROM {_LEGACY_TABLE}").fetchall()
 
         result = MigrationResult(source=source, dry_run=dry_run)
         column_count = _COLUMNS.count(",") + 1
@@ -109,8 +97,7 @@ def migrate_legacy(
                     result.skipped += 1
                     continue
                 api.execute(
-                    f"INSERT INTO {_NEW_TABLE} ({_COLUMNS}) "
-                    f"VALUES ({placeholders})",
+                    f"INSERT INTO {_NEW_TABLE} ({_COLUMNS}) VALUES ({placeholders})",
                     tuple(row),
                 )
                 result.imported += 1

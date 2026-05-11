@@ -46,7 +46,7 @@ def cosine_similarity(a: bytes, b: bytes) -> float:
 
 
 def search_testimonials(
-    api: "ExtensionAPI", query: str, *, limit: int = 5
+    api: ExtensionAPI, query: str, *, limit: int = 5
 ) -> list[tuple[Testimonial, float]]:
     """Embed ``query``, rank every stored testimonial by cosine
     similarity, return the top ``limit`` (testimonial, score) tuples.

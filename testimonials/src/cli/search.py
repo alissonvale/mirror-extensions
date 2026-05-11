@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from memory.extensions.api import ExtensionAPI
 
 
-def cmd_search(api: "ExtensionAPI", args: list[str]) -> int:
+def cmd_search(api: ExtensionAPI, args: list[str]) -> int:
     """Semantic search across testimonials."""
     if not args or args[0] in {"--help", "-h", "help"}:
         _print_usage()
@@ -41,7 +41,7 @@ def cmd_search(api: "ExtensionAPI", args: list[str]) -> int:
 
     try:
         results = search_testimonials(api, query, limit=limit)
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         print(f"error: search failed: {exc}")
         return 1
 
@@ -59,17 +59,13 @@ def cmd_search(api: "ExtensionAPI", args: list[str]) -> int:
         print(f"[{testimonial.id}] {testimonial.author_name} (score: {score:.3f})")
         if testimonial.product:
             print(f"  product: {testimonial.product}")
-        preview = (
-            testimonial.highlight
-            or (testimonial.content[:160] + ("..." if len(testimonial.content) > 160 else ""))
+        preview = testimonial.highlight or (
+            testimonial.content[:160] + ("..." if len(testimonial.content) > 160 else "")
         )
-        print(f"  \"{preview}\"")
+        print(f'  "{preview}"')
         print()
     return 0
 
 
 def _print_usage() -> None:
-    print(
-        "usage: python -m memory ext testimonials search \"<query>\" "
-        "[--limit <N>]"
-    )
+    print('usage: python -m memory ext testimonials search "<query>" [--limit <N>]')

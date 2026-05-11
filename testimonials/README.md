@@ -29,6 +29,18 @@ python -m memory ext testimonials migrate-legacy --source <legacy-db-path>
 
 Full reference in [docs/commands.md](docs/commands.md).
 
+## Mirror Mode binding
+
+The extension exposes the `recent_testimonials` capability. Bind it
+to any persona that benefits from having the customer's voice on
+hand during reflection (writer, marketer, editor, …):
+
+```bash
+python -m memory ext testimonials bind recent_testimonials --persona <persona-id>
+```
+
+Full binding recipes and tuning in [docs/bindings.md](docs/bindings.md).
+
 ## What sets it apart
 
 - **`add` accepts free text.** The CLI invokes the framework's LLM
@@ -49,6 +61,7 @@ Full reference in [docs/commands.md](docs/commands.md).
 - [Architecture](docs/architecture.md)
 - [Commands](docs/commands.md)
 - [Data model](docs/data-model.md)
+- [Mirror Mode bindings](docs/bindings.md)
 - [Migrations](docs/migrations.md)
 - [Legacy migration](docs/legacy-migration.md)
 - [User stories](docs/user-stories/README.md)
@@ -56,4 +69,4 @@ Full reference in [docs/commands.md](docs/commands.md).
 
 ## Status
 
-✅ Complete (4/4 stories).
+✅ Complete (5/5 stories).

@@ -26,7 +26,7 @@ def _row_to_testimonial(row) -> Testimonial:
 
 
 def list_testimonials(
-    api: "ExtensionAPI",
+    api: ExtensionAPI,
     *,
     product: str | None = None,
     author_like: str | None = None,
@@ -46,14 +46,13 @@ def list_testimonials(
         params.append(source)
     where = (" WHERE " + " AND ".join(clauses)) if clauses else ""
     rows = api.read(
-        f"SELECT * FROM ext_testimonials_records{where} "
-        f"ORDER BY received_at DESC, created_at DESC",
+        f"SELECT * FROM ext_testimonials_records{where} ORDER BY received_at DESC, created_at DESC",
         params,
     ).fetchall()
     return [_row_to_testimonial(r) for r in rows]
 
 
-def get_testimonial(api: "ExtensionAPI", testimonial_id: str) -> Testimonial | None:
+def get_testimonial(api: ExtensionAPI, testimonial_id: str) -> Testimonial | None:
     row = api.read(
         "SELECT * FROM ext_testimonials_records WHERE id = ?",
         (testimonial_id,),
@@ -61,7 +60,7 @@ def get_testimonial(api: "ExtensionAPI", testimonial_id: str) -> Testimonial | N
     return _row_to_testimonial(row) if row else None
 
 
-def all_with_embeddings(api: "ExtensionAPI") -> list[Testimonial]:
+def all_with_embeddings(api: ExtensionAPI) -> list[Testimonial]:
     """Every testimonial that has a non-null embedding (search input)."""
     rows = api.read(
         "SELECT * FROM ext_testimonials_records "

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from typing import TYPE_CHECKING
 
 from src.parse import parse_testimonial
@@ -12,7 +11,7 @@ if TYPE_CHECKING:
     from memory.extensions.api import ExtensionAPI
 
 
-def cmd_add(api: "ExtensionAPI", args: list[str]) -> int:
+def cmd_add(api: ExtensionAPI, args: list[str]) -> int:
     """Register a testimonial from free text. LLM extracts the fields."""
     if not args or args[0] in {"--help", "-h", "help"}:
         _print_usage()
@@ -31,7 +30,7 @@ def cmd_add(api: "ExtensionAPI", args: list[str]) -> int:
     # user is most likely searching for later.
     try:
         embedding = api.embed(parsed["content"])
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         print(f"warning: embedding failed, record will be saved without it: {exc}")
         embedding = None
 
@@ -48,13 +47,14 @@ def cmd_add(api: "ExtensionAPI", args: list[str]) -> int:
     )
 
     print(f"added testimonial {testimonial_id}")
-    print(f"  author: {parsed['author_name']}" + (
-        f" ({parsed['source']})" if parsed["source"] else ""
-    ))
+    print(
+        f"  author: {parsed['author_name']}"
+        + (f" ({parsed['source']})" if parsed["source"] else "")
+    )
     if parsed["product"]:
         print(f"  product: {parsed['product']}")
     if parsed["highlight"]:
-        print(f"  highlight: \"{parsed['highlight']}\"")
+        print(f'  highlight: "{parsed["highlight"]}"')
     if parsed["tags"]:
         print(f"  tags: {', '.join(parsed['tags'])}")
     if parsed["received_at"]:
@@ -64,7 +64,7 @@ def cmd_add(api: "ExtensionAPI", args: list[str]) -> int:
 
 def _print_usage() -> None:
     print(
-        "usage: python -m memory ext testimonials add \"<free text>\"\n"
+        'usage: python -m memory ext testimonials add "<free text>"\n'
         "  The free text is the user's description of the testimonial. "
         "The LLM extracts:\n"
         "    author_name, content (verbatim quote), source, product, "
