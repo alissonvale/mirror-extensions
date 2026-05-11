@@ -30,15 +30,81 @@ if str(_EXTENSION_ROOT) not in sys.path:
 
 from memory.extensions.api import ContextRequest, ExtensionAPI  # noqa: E402
 
+from src.cli.accounts import cmd_accounts  # noqa: E402
+from src.cli.balance import cmd_balance, cmd_snapshot  # noqa: E402
+from src.cli.bills import cmd_bills  # noqa: E402
+from src.cli.categories import cmd_categories, cmd_categorize  # noqa: E402
+from src.cli.import_statement import (  # noqa: E402
+    cmd_import_credit_card_statement,
+    cmd_import_statement,
+)
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
+from src.cli.report import cmd_report  # noqa: E402
+from src.cli.runway import cmd_runway  # noqa: E402
+from src.cli.transactions import cmd_transactions  # noqa: E402
 from src.reports import financial_context_text  # noqa: E402
 
 
 def register(api: ExtensionAPI) -> None:
     api.register_cli(
+        "accounts",
+        cmd_accounts,
+        summary="Register and list accounts (US-01)",
+    )
+    api.register_cli(
+        "balance",
+        cmd_balance,
+        summary="Show latest balance per account (US-02)",
+    )
+    api.register_cli(
+        "snapshot",
+        cmd_snapshot,
+        summary="Record a balance snapshot for an account (US-02)",
+    )
+    api.register_cli(
+        "transactions",
+        cmd_transactions,
+        summary="List and filter transactions (US-05)",
+    )
+    api.register_cli(
+        "bills",
+        cmd_bills,
+        summary="Manage recurring bills (US-06)",
+    )
+    api.register_cli(
+        "categories",
+        cmd_categories,
+        summary="Manage transaction categories (US-09)",
+    )
+    api.register_cli(
+        "categorize",
+        cmd_categorize,
+        summary="Attach a category to a transaction (US-09)",
+    )
+    api.register_cli(
+        "runway",
+        cmd_runway,
+        summary="Compute runway under explicit assumptions (US-07)",
+    )
+    api.register_cli(
+        "report",
+        cmd_report,
+        summary="Monthly income/expense/net report (US-08)",
+    )
+    api.register_cli(
+        "import-statement",
+        cmd_import_statement,
+        summary="Import a bank statement (US-03)",
+    )
+    api.register_cli(
+        "import-credit-card-statement",
+        cmd_import_credit_card_statement,
+        summary="Import a credit card statement (US-04)",
+    )
+    api.register_cli(
         "migrate-legacy",
         cmd_migrate_legacy,
-        summary="Migrate legacy mirror finance data into ext_finances_* tables",
+        summary="Migrate legacy mirror finance data into ext_finances_* tables (US-11)",
     )
     api.register_mirror_context("financial_summary", _provide_financial_summary)
 

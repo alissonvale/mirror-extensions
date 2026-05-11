@@ -2,7 +2,7 @@
 
 # US-03 — Import bank statement
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

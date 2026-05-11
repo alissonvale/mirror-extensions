@@ -2,7 +2,7 @@
 
 # US-08 — Monthly cash flow report
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

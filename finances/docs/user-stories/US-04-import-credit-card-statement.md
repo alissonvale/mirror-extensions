@@ -2,7 +2,7 @@
 
 # US-04 — Import credit card statement
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

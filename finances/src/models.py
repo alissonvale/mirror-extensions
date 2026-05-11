@@ -54,6 +54,14 @@ class BalanceSnapshot:
 
 
 @dataclass(frozen=True)
+class Category:
+    id: str
+    name: str
+    type: str               # 'income' | 'expense' | 'transfer'
+    created_at: str = ""
+
+
+@dataclass(frozen=True)
 class RecurringBill:
     id: str
     name: str

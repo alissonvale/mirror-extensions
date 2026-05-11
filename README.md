@@ -28,7 +28,7 @@ when overriding the default.
 
 | Folder | Status | What it does |
 |---|---|---|
-| [`finances/`](finances/) | 🟡 Phase 1 — partially usable | Personal and business finance tracking: accounts, transactions, balance snapshots, recurring bills, runway, monthly cash flow, and a `financial_summary` capability that injects live numbers into Mirror Mode for a finance-aware persona. Currently shipped: legacy-data migration (for users coming from an earlier mirror prototype) and the Mirror Mode provider. Pending: CLI surfaces for adding accounts, recording snapshots, managing bills, importing statements, and reporting — see [`finances/docs/user-stories/`](finances/docs/user-stories/) for the road map. |
+| [`finances/`](finances/) | ✅ Complete (11/11 stories) | Personal and business finance tracking: accounts, transactions, balance snapshots, recurring bills, runway, monthly cash flow, and a `financial_summary` capability that injects live numbers into Mirror Mode for a finance-aware persona. Complete CLI surface: register accounts, record balance snapshots, manage recurring bills and categories, import bank statements (OFX) and credit card statements (CSV), list and filter transactions, compute burn and runway under different assumptions, and migrate from a legacy mirror SQLite database. See [`finances/docs/user-stories/`](finances/docs/user-stories/) for the full story trail. |
 | `testimonials/` | ⚪ Planned | A future home for a customer-testimonials extension. Not started. |
 
 ## Requirements

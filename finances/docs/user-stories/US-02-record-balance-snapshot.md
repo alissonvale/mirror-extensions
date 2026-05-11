@@ -2,7 +2,7 @@
 
 # US-02 — Record balance snapshot
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

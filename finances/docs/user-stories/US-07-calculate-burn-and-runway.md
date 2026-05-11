@@ -2,7 +2,7 @@
 
 # US-07 — Calculate burn and runway
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

@@ -2,7 +2,7 @@
 
 # US-06 — Manage recurring bills
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 
