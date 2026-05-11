@@ -33,15 +33,11 @@ when overriding the default.
 
 ## Requirements
 
-- **Mirror Mind** with the stateful extension system installed
-  (CV14.E1 / `command-skill` support).
+- **Mirror Mind** with the stateful extension system
+  ([CV14.E1](https://github.com/viniciusteles/mirror/tree/main/docs/product/extensions),
+  `command-skill` kind), available on `main` since 2026-05-11.
 - **Python 3.10+**.
 - **uv** for running the framework's commands.
-
-Until Mirror Mind merges the `command-skill` infrastructure on `main`,
-these extensions only run against a Mirror Mind checkout that carries
-that work. Once the framework is released, `pip install` /
-`uv run python -m memory` will be enough on any host.
 
 ## Repository layout
 
