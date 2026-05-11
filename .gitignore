@@ -47,3 +47,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local Maestro coherence artifacts (generated when this source tree is
+# itself used as a Maestro target project; not part of the shareable extension)
+maestro/maestro.yml
+maestro/docs/coherence/

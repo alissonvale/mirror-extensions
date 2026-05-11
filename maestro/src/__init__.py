@@ -1,0 +1,1 @@
+"""Maestro extension package."""

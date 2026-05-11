@@ -1,0 +1,25 @@
+id: maestro
+name: Maestro
+category: extension
+kind: command-skill
+summary: Coherence engine for Mirror-native project journeys.
+table_prefix: ext_maestro_
+
+entrypoint:
+  module: extension
+
+runtimes:
+  pi:
+    command_name: ext-maestro
+    skill_file: SKILL.md
+  claude:
+    command_name: ext:maestro
+    skill_file: SKILL.md
+
+mirror_context_providers:
+  - id: coherence_status
+    summary: Always inject the current coherence status for the active journey project.
+    suggested_journeys: [maestro]
+
+requires:
+  extension_api: ">=1.0,<2.0"
