@@ -23,7 +23,7 @@ production-shape numbers from its first test run.
 | US-10 | [Inject financial context into Mirror Mode](US-10-inject-financial-context-into-mirror-mode.md) | ✅ Done |
 | US-03 | [Import bank statement](US-03-import-bank-statement.md) | ⚪ Planned |
 | US-04 | [Import credit card statement](US-04-import-credit-card-statement.md) | ⚪ Planned |
-| US-09 | [Categorize transactions](US-09-categorize-transactions.md) | ⚪ Planned |
+| US-09 | [Categorize transactions](US-09-categorize-transactions.md) | ✅ Done |
 
 This order is a suggestion. The schema is shared across all stories,
 so any of US-01..US-10 can move forward after US-11 closes; the table

@@ -45,6 +45,7 @@ VALID_ENTITIES = {"personal", "business"}
 VALID_LIQUIDITIES = {"liquid", "semi_liquid", "illiquid"}
 VALID_SNAPSHOT_SOURCES = {"manual", "ofx", "opening", "reconciliation"}
 VALID_BILL_CATEGORIES = {"fixed", "variable"}
+VALID_CATEGORY_TYPES = {"income", "expense", "transfer"}
 
 
 def _require(value, valid: set[str], field: str) -> str:
@@ -197,6 +198,81 @@ def deactivate_bill(api: "ExtensionAPI", bill_id: str) -> bool:
     cursor = api.execute(
         "UPDATE ext_finances_recurring_bills SET active = 0 WHERE id = ?",
         (bill_id,),
+    )
+    api.commit()
+    return (cursor.rowcount or 0) > 0
+
+
+# --- Categories (US-09) --------------------------------------------------
+
+
+def create_category(api: "ExtensionAPI", *, name: str, type: str) -> str:
+    """Create a transaction category. Returns the new id.
+
+    Names are unique at the schema level. Duplicate names raise
+    ``ValueError`` instead of leaking ``sqlite3.IntegrityError``.
+    """
+    _require(type, VALID_CATEGORY_TYPES, "type")
+    cat_id = new_id()
+    try:
+        api.execute(
+            "INSERT INTO ext_finances_categories "
+            "(id, name, type, created_at) VALUES (?, ?, ?, ?)",
+            (cat_id, name, type, now_utc_iso()),
+        )
+        api.commit()
+    except Exception as exc:
+        # The schema enforces UNIQUE(name); surface a friendly error.
+        message = str(exc).lower()
+        if "unique" in message:
+            raise ValueError(f"category '{name}' already exists") from exc
+        raise
+    return cat_id
+
+
+def get_or_create_category(
+    api: "ExtensionAPI", *, name: str, type: str
+) -> str:
+    """Return an existing category's id (by name) or create a new one."""
+    from src.store import get_category_by_name
+
+    existing = get_category_by_name(api, name)
+    if existing:
+        return existing.id
+    return create_category(api, name=name, type=type)
+
+
+def delete_category(api: "ExtensionAPI", category_id: str) -> bool:
+    """Delete a category if no transaction references it.
+
+    Returns True on deletion, False when the id is unknown. Raises
+    ``ValueError`` if at least one transaction still points at this
+    category, naming the count.
+    """
+    count = api.read(
+        "SELECT COUNT(*) AS c FROM ext_finances_transactions "
+        "WHERE category_id = ?",
+        (category_id,),
+    ).fetchone()["c"]
+    if count:
+        raise ValueError(
+            f"category {category_id} is referenced by {count} "
+            f"transaction(s); reassign them first"
+        )
+    cursor = api.execute(
+        "DELETE FROM ext_finances_categories WHERE id = ?", (category_id,)
+    )
+    api.commit()
+    return (cursor.rowcount or 0) > 0
+
+
+def assign_category_to_transaction(
+    api: "ExtensionAPI", *, transaction_id: str, category_id: str | None
+) -> bool:
+    """Set or clear a transaction's category. Returns True when changed."""
+    cursor = api.execute(
+        "UPDATE ext_finances_transactions SET category_id = ? WHERE id = ?",
+        (category_id, transaction_id),
     )
     api.commit()
     return (cursor.rowcount or 0) > 0

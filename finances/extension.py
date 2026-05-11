@@ -33,6 +33,7 @@ from memory.extensions.api import ContextRequest, ExtensionAPI  # noqa: E402
 from src.cli.accounts import cmd_accounts  # noqa: E402
 from src.cli.balance import cmd_balance, cmd_snapshot  # noqa: E402
 from src.cli.bills import cmd_bills  # noqa: E402
+from src.cli.categories import cmd_categories, cmd_categorize  # noqa: E402
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
 from src.cli.report import cmd_report  # noqa: E402
 from src.cli.runway import cmd_runway  # noqa: E402
@@ -65,6 +66,16 @@ def register(api: ExtensionAPI) -> None:
         "bills",
         cmd_bills,
         summary="Manage recurring bills (US-06)",
+    )
+    api.register_cli(
+        "categories",
+        cmd_categories,
+        summary="Manage transaction categories (US-09)",
+    )
+    api.register_cli(
+        "categorize",
+        cmd_categorize,
+        summary="Attach a category to a transaction (US-09)",
     )
     api.register_cli(
         "runway",

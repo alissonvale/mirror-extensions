@@ -10,7 +10,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from src.models import Account, BalanceSnapshot, RecurringBill, Transaction
+from src.models import (
+    Account,
+    BalanceSnapshot,
+    Category,
+    RecurringBill,
+    Transaction,
+)
 
 if TYPE_CHECKING:
     from memory.extensions.api import ExtensionAPI
@@ -146,3 +152,37 @@ def list_active_bills(api: "ExtensionAPI") -> list[RecurringBill]:
         "WHERE active = 1 ORDER BY entity, name"
     ).fetchall()
     return [_row_to_bill(r) for r in rows]
+
+
+def _row_to_category(row) -> Category:
+    return Category(
+        id=row["id"],
+        name=row["name"],
+        type=row["type"],
+        created_at=row["created_at"],
+    )
+
+
+def list_categories(api: "ExtensionAPI") -> list[Category]:
+    rows = api.read(
+        "SELECT * FROM ext_finances_categories ORDER BY type, name"
+    ).fetchall()
+    return [_row_to_category(r) for r in rows]
+
+
+def get_category_by_name(
+    api: "ExtensionAPI", name: str
+) -> Category | None:
+    row = api.read(
+        "SELECT * FROM ext_finances_categories WHERE LOWER(name) = LOWER(?)",
+        (name,),
+    ).fetchone()
+    return _row_to_category(row) if row else None
+
+
+def get_category(api: "ExtensionAPI", category_id: str) -> Category | None:
+    row = api.read(
+        "SELECT * FROM ext_finances_categories WHERE id = ?",
+        (category_id,),
+    ).fetchone()
+    return _row_to_category(row) if row else None
