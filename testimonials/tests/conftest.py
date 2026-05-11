@@ -45,6 +45,7 @@ def deterministic_embedder(monkeypatch):
     the underlying generate_embedding so callers do not need to inject
     embed_fn at construction time.
     """
+
     def fake_generate(text: str):
         # 1536 float32, derived from text bytes so two equal strings
         # round-trip to the same vector. Normalised so cosine values
@@ -55,9 +56,7 @@ def deterministic_embedder(monkeypatch):
         norm = np.linalg.norm(vec)
         return vec / norm if norm > 0 else vec
 
-    monkeypatch.setattr(
-        "memory.intelligence.embeddings.generate_embedding", fake_generate
-    )
+    monkeypatch.setattr("memory.intelligence.embeddings.generate_embedding", fake_generate)
     return fake_generate
 
 
@@ -87,16 +86,46 @@ def legacy_db(tmp_path):
         rng = np.random.default_rng(42)
         for idx, (author, content, source, product, highlight, tags) in enumerate(
             [
-                ("Alice", "Loved the workshop, learned a lot.", "email", "Workshop",
-                 "Loved the workshop", '["workshop","clarity"]'),
-                ("Bob", "Best book I read this year.", "whatsapp", "Book",
-                 "Best book I read this year", '["book","recommendation"]'),
-                ("Cara", "Your course changed my career.", "linkedin", "Course",
-                 "changed my career", '["course","transformation"]'),
-                ("Dani", "The youtube videos are great.", "youtube", "YouTube",
-                 None, '["youtube","content"]'),
-                ("Eric", "Thanks for the mentorship session.", "email", "Mentorship",
-                 "Thanks for the mentorship", '["mentorship"]'),
+                (
+                    "Alice",
+                    "Loved the workshop, learned a lot.",
+                    "email",
+                    "Workshop",
+                    "Loved the workshop",
+                    '["workshop","clarity"]',
+                ),
+                (
+                    "Bob",
+                    "Best book I read this year.",
+                    "whatsapp",
+                    "Book",
+                    "Best book I read this year",
+                    '["book","recommendation"]',
+                ),
+                (
+                    "Cara",
+                    "Your course changed my career.",
+                    "linkedin",
+                    "Course",
+                    "changed my career",
+                    '["course","transformation"]',
+                ),
+                (
+                    "Dani",
+                    "The youtube videos are great.",
+                    "youtube",
+                    "YouTube",
+                    None,
+                    '["youtube","content"]',
+                ),
+                (
+                    "Eric",
+                    "Thanks for the mentorship session.",
+                    "email",
+                    "Mentorship",
+                    "Thanks for the mentorship",
+                    '["mentorship"]',
+                ),
             ],
             start=1,
         ):

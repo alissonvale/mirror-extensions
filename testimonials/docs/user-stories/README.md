@@ -18,3 +18,4 @@ depends on the LLM.
 | US-02 | [List testimonials with filters](US-02-list-testimonials-with-filters.md) | ✅ Done |
 | US-03 | [Search testimonials by similarity](US-03-search-testimonials-by-similarity.md) | ✅ Done |
 | US-04 | [Migrate legacy testimonials](US-04-migrate-legacy-testimonials.md) | ✅ Done |
+| US-05 | [Mirror Mode capability `recent_testimonials`](US-05-mirror-mode-capability.md) | ✅ Done |

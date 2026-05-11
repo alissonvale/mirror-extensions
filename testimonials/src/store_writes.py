@@ -26,7 +26,7 @@ def today_iso() -> str:
 
 
 def insert_testimonial(
-    api: "ExtensionAPI",
+    api: ExtensionAPI,
     *,
     author_name: str,
     content: str,

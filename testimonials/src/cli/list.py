@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from memory.extensions.api import ExtensionAPI
 
 
-def cmd_list(api: "ExtensionAPI", args: list[str]) -> int:
+def cmd_list(api: ExtensionAPI, args: list[str]) -> int:
     """List testimonials with optional filters."""
     if args and args[0] in {"--help", "-h", "help"}:
         _print_usage()
@@ -42,10 +42,10 @@ def cmd_list(api: "ExtensionAPI", args: list[str]) -> int:
         if t.product:
             print(f"  product: {t.product}")
         if t.highlight:
-            print(f"  \"{t.highlight}\"")
+            print(f'  "{t.highlight}"')
         else:
             preview = t.content[:120] + ("..." if len(t.content) > 120 else "")
-            print(f"  \"{preview}\"")
+            print(f'  "{preview}"')
         if t.tags:
             print(f"  tags: {', '.join(t.tags)}")
         print()

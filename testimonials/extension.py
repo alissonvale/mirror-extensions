@@ -1,9 +1,9 @@
 """Entrypoint for the testimonials extension.
 
-Registers the four CLI subcommands. The extension does not provide a
-Mirror Mode context provider — testimonials are queried, not always
-shown. A future capability could surface "recent testimonials" for
-copy/launch personas if the need emerges.
+Registers four CLI subcommands plus the ``recent_testimonials`` Mirror
+Mode capability. The capability is query-driven: it only injects a
+block when the user query semantically matches at least one stored
+testimonial above the relevance floor. See ``src/context.py``.
 """
 
 from __future__ import annotations
@@ -19,12 +19,13 @@ _EXTENSION_ROOT = Path(__file__).resolve().parent
 if str(_EXTENSION_ROOT) not in sys.path:
     sys.path.insert(0, str(_EXTENSION_ROOT))
 
-from memory.extensions.api import ExtensionAPI  # noqa: E402
-
 from src.cli.add import cmd_add  # noqa: E402
 from src.cli.list import cmd_list  # noqa: E402
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
 from src.cli.search import cmd_search  # noqa: E402
+from src.context import provide_recent_testimonials  # noqa: E402
+
+from memory.extensions.api import ExtensionAPI  # noqa: E402
 
 
 def register(api: ExtensionAPI) -> None:
@@ -47,4 +48,8 @@ def register(api: ExtensionAPI) -> None:
         "migrate-legacy",
         cmd_migrate_legacy,
         summary="Import testimonials from a legacy mirror database (US-04)",
+    )
+    api.register_mirror_context(
+        "recent_testimonials",
+        provide_recent_testimonials,
     )

@@ -12,15 +12,15 @@ from src.store_writes import insert_testimonial
 
 
 def _insert(api, **kwargs):
-    defaults = dict(
-        author_name="Alice",
-        content="Loved it.",
-        source="email",
-        product="Workshop",
-        highlight="Loved it.",
-        tags=["clarity", "workshop"],
-        received_at="2026-05-01",
-    )
+    defaults = {
+        "author_name": "Alice",
+        "content": "Loved it.",
+        "source": "email",
+        "product": "Workshop",
+        "highlight": "Loved it.",
+        "tags": ["clarity", "workshop"],
+        "received_at": "2026-05-01",
+    }
     defaults.update(kwargs)
     return insert_testimonial(api, **defaults)
 

@@ -5,14 +5,11 @@ from __future__ import annotations
 import sqlite3
 
 import pytest
-
 from src.migrate_legacy import LegacyMigrationError, migrate_legacy
 
 
 def _count(api):
-    return api.read(
-        "SELECT count(*) AS c FROM ext_testimonials_records"
-    ).fetchone()["c"]
+    return api.read("SELECT count(*) AS c FROM ext_testimonials_records").fetchone()["c"]
 
 
 def test_dry_run_reports_counts_without_writing(testimonials_api, legacy_db):
@@ -29,8 +26,7 @@ def test_real_run_imports_all_rows_with_embeddings(testimonials_api, legacy_db):
     assert _count(testimonials_api) == 5
 
     rows = testimonials_api.read(
-        "SELECT id, author_name, embedding FROM ext_testimonials_records "
-        "ORDER BY id"
+        "SELECT id, author_name, embedding FROM ext_testimonials_records ORDER BY id"
     ).fetchall()
     assert [r["id"] for r in rows] == [f"leg0000{i}" for i in range(1, 6)]
     # Embeddings copied verbatim; 1536 float32 = 6144 bytes.
@@ -50,9 +46,7 @@ def test_running_twice_is_idempotent(testimonials_api, legacy_db):
 
 def test_partial_state_is_topped_up(testimonials_api, legacy_db):
     migrate_legacy(testimonials_api, source=legacy_db)
-    testimonials_api.execute(
-        "DELETE FROM ext_testimonials_records WHERE id = 'leg00001'"
-    )
+    testimonials_api.execute("DELETE FROM ext_testimonials_records WHERE id = 'leg00001'")
     testimonials_api.commit()
     result = migrate_legacy(testimonials_api, source=legacy_db)
     assert result.imported == 1
