@@ -31,6 +31,7 @@ if str(_EXTENSION_ROOT) not in sys.path:
 from memory.extensions.api import ContextRequest, ExtensionAPI  # noqa: E402
 
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
+from src.reports import financial_context_text  # noqa: E402
 
 
 def register(api: ExtensionAPI) -> None:
@@ -39,16 +40,28 @@ def register(api: ExtensionAPI) -> None:
         cmd_migrate_legacy,
         summary="Migrate legacy mirror finance data into ext_finances_* tables",
     )
-    # The financial_summary capability is declared in skill.yaml so the
-    # mirror knows the extension intends to provide Mirror Mode context,
-    # but the provider returns None until US-10 lands.
     api.register_mirror_context("financial_summary", _provide_financial_summary)
 
 
-def _provide_financial_summary(api: ExtensionAPI, ctx: ContextRequest) -> str | None:
+def _provide_financial_summary(
+    api: ExtensionAPI, ctx: ContextRequest
+) -> str | None:
     """Live financial summary for injection into the Mirror Mode prompt.
 
-    Implementation pending — see US-10. Returns None until the underlying
-    report functions land, so a premature bind does no harm.
+    Reads accounts, latest snapshots, transactions, and active bills,
+    and composes a markdown block. Returns None when the extension has
+    no accounts, so an empty database does not pollute the prompt.
+
+    Any failure inside the composer (bad data, unexpected NULLs) is
+    caught here; the framework's context dispatcher already isolates
+    raises, but catching locally keeps the failure attributable.
     """
-    return None
+    try:
+        return financial_context_text(api)
+    except Exception as exc:  # noqa: BLE001 — surface, do not crash Mirror Mode
+        api.log(
+            "warning",
+            "financial_summary provider failed; returning None",
+            error=str(exc),
+        )
+        return None

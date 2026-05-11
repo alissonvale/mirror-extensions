@@ -2,7 +2,7 @@
 
 # US-10 — Inject financial context into Mirror Mode
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 
