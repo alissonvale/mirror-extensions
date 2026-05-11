@@ -2,7 +2,7 @@
 
 # US-05 — List and filter transactions
 
-**Status:** ⚪ Planned
+**Status:** ✅ Done · 2026-05-11
 
 ## Story
 

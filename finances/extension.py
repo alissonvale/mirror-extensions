@@ -34,6 +34,9 @@ from src.cli.accounts import cmd_accounts  # noqa: E402
 from src.cli.balance import cmd_balance, cmd_snapshot  # noqa: E402
 from src.cli.bills import cmd_bills  # noqa: E402
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
+from src.cli.report import cmd_report  # noqa: E402
+from src.cli.runway import cmd_runway  # noqa: E402
+from src.cli.transactions import cmd_transactions  # noqa: E402
 from src.reports import financial_context_text  # noqa: E402
 
 
@@ -54,9 +57,24 @@ def register(api: ExtensionAPI) -> None:
         summary="Record a balance snapshot for an account (US-02)",
     )
     api.register_cli(
+        "transactions",
+        cmd_transactions,
+        summary="List and filter transactions (US-05)",
+    )
+    api.register_cli(
         "bills",
         cmd_bills,
         summary="Manage recurring bills (US-06)",
+    )
+    api.register_cli(
+        "runway",
+        cmd_runway,
+        summary="Compute runway under explicit assumptions (US-07)",
+    )
+    api.register_cli(
+        "report",
+        cmd_report,
+        summary="Monthly income/expense/net report (US-08)",
     )
     api.register_cli(
         "migrate-legacy",

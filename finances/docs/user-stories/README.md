@@ -16,10 +16,10 @@ production-shape numbers from its first test run.
 | US-11 | [Migrate legacy data](US-11-migrate-legacy-data.md) | ✅ Done |
 | US-01 | [Register and list accounts](US-01-register-and-list-accounts.md) | ✅ Done |
 | US-02 | [Record balance snapshot](US-02-record-balance-snapshot.md) | ✅ Done |
-| US-05 | [List and filter transactions](US-05-list-and-filter-transactions.md) | ⚪ Planned |
-| US-08 | [Monthly cash flow report](US-08-monthly-cash-flow-report.md) | ⚪ Planned |
+| US-05 | [List and filter transactions](US-05-list-and-filter-transactions.md) | ✅ Done |
+| US-08 | [Monthly cash flow report](US-08-monthly-cash-flow-report.md) | ✅ Done |
 | US-06 | [Manage recurring bills](US-06-manage-recurring-bills.md) | ✅ Done |
-| US-07 | [Calculate burn and runway](US-07-calculate-burn-and-runway.md) | ⚪ Planned |
+| US-07 | [Calculate burn and runway](US-07-calculate-burn-and-runway.md) | ✅ Done |
 | US-10 | [Inject financial context into Mirror Mode](US-10-inject-financial-context-into-mirror-mode.md) | ✅ Done |
 | US-03 | [Import bank statement](US-03-import-bank-statement.md) | ⚪ Planned |
 | US-04 | [Import credit card statement](US-04-import-credit-card-statement.md) | ⚪ Planned |

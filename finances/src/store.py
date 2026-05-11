@@ -94,9 +94,48 @@ def get_latest_snapshot(
     return _row_to_snapshot(row) if row else None
 
 
-def list_transactions(api: "ExtensionAPI") -> list[Transaction]:
+def list_transactions(
+    api: "ExtensionAPI",
+    *,
+    account_id: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+    category_id: str | None = None,
+    type: str | None = None,
+    description_like: str | None = None,
+) -> list[Transaction]:
+    """List transactions with optional filters.
+
+    Every filter is AND-composed. ``description_like`` does a
+    case-insensitive substring match. Without filters, returns every
+    row ordered by date ascending.
+    """
+    clauses: list[str] = []
+    params: list[object] = []
+    if account_id:
+        clauses.append("account_id = ?")
+        params.append(account_id)
+    if start_date:
+        clauses.append("date >= ?")
+        params.append(start_date)
+    if end_date:
+        clauses.append("date <= ?")
+        params.append(end_date)
+    if category_id:
+        clauses.append("category_id = ?")
+        params.append(category_id)
+    if type:
+        clauses.append("type = ?")
+        params.append(type)
+    if description_like:
+        clauses.append("LOWER(description) LIKE ?")
+        params.append(f"%{description_like.lower()}%")
+
+    where = (" WHERE " + " AND ".join(clauses)) if clauses else ""
     rows = api.read(
-        "SELECT * FROM ext_finances_transactions ORDER BY date, created_at"
+        f"SELECT * FROM ext_finances_transactions{where} "
+        f"ORDER BY date, created_at",
+        params,
     ).fetchall()
     return [_row_to_transaction(r) for r in rows]
 
