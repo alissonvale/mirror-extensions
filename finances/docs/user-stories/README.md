@@ -21,8 +21,8 @@ production-shape numbers from its first test run.
 | US-06 | [Manage recurring bills](US-06-manage-recurring-bills.md) | ✅ Done |
 | US-07 | [Calculate burn and runway](US-07-calculate-burn-and-runway.md) | ✅ Done |
 | US-10 | [Inject financial context into Mirror Mode](US-10-inject-financial-context-into-mirror-mode.md) | ✅ Done |
-| US-03 | [Import bank statement](US-03-import-bank-statement.md) | ⚪ Planned |
-| US-04 | [Import credit card statement](US-04-import-credit-card-statement.md) | ⚪ Planned |
+| US-03 | [Import bank statement](US-03-import-bank-statement.md) | ✅ Done |
+| US-04 | [Import credit card statement](US-04-import-credit-card-statement.md) | ✅ Done |
 | US-09 | [Categorize transactions](US-09-categorize-transactions.md) | ✅ Done |
 
 This order is a suggestion. The schema is shared across all stories,

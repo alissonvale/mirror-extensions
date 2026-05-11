@@ -34,6 +34,10 @@ from src.cli.accounts import cmd_accounts  # noqa: E402
 from src.cli.balance import cmd_balance, cmd_snapshot  # noqa: E402
 from src.cli.bills import cmd_bills  # noqa: E402
 from src.cli.categories import cmd_categories, cmd_categorize  # noqa: E402
+from src.cli.import_statement import (  # noqa: E402
+    cmd_import_credit_card_statement,
+    cmd_import_statement,
+)
 from src.cli.migrate_legacy import cmd_migrate_legacy  # noqa: E402
 from src.cli.report import cmd_report  # noqa: E402
 from src.cli.runway import cmd_runway  # noqa: E402
@@ -86,6 +90,16 @@ def register(api: ExtensionAPI) -> None:
         "report",
         cmd_report,
         summary="Monthly income/expense/net report (US-08)",
+    )
+    api.register_cli(
+        "import-statement",
+        cmd_import_statement,
+        summary="Import a bank statement (US-03)",
+    )
+    api.register_cli(
+        "import-credit-card-statement",
+        cmd_import_credit_card_statement,
+        summary="Import a credit card statement (US-04)",
     )
     api.register_cli(
         "migrate-legacy",
