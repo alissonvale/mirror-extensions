@@ -29,7 +29,7 @@ when overriding the default.
 | Folder | Status | What it does |
 |---|---|---|
 | [`finances/`](finances/) | ✅ Complete (11/11 stories) | Personal and business finance tracking: accounts, transactions, balance snapshots, recurring bills, runway, monthly cash flow, and a `financial_summary` capability that injects live numbers into Mirror Mode for a finance-aware persona. Complete CLI surface: register accounts, record balance snapshots, manage recurring bills and categories, import bank statements (OFX) and credit card statements (CSV), list and filter transactions, compute burn and runway under different assumptions, and migrate from a legacy mirror SQLite database. See [`finances/docs/user-stories/`](finances/docs/user-stories/) for the full story trail. |
-| `testimonials/` | ⚪ Planned | A future home for a customer-testimonials extension. Not started. |
+| [`testimonials/`](testimonials/) | ✅ Complete (4/4 stories) | Customer testimonials with LLM-assisted structuring and semantic search. `add` accepts free text and uses the framework's LLM router to extract author, source, product, quotable highlight, and tags; `list` filters by product / author / source; `search` ranks by cosine similarity over embeddings; `migrate-legacy` imports a legacy archive with embeddings preserved verbatim (the legacy mirror used the same embedding model). See [`testimonials/docs/user-stories/`](testimonials/docs/user-stories/). |
 
 ## Requirements
 

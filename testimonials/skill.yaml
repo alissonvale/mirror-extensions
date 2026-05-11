@@ -1,0 +1,20 @@
+id: testimonials
+name: Testimonials
+category: extension
+kind: command-skill
+summary: Customer testimonials with LLM-assisted structuring and semantic search.
+table_prefix: ext_testimonials_
+
+entrypoint:
+  module: extension
+
+runtimes:
+  pi:
+    command_name: ext-testimonials
+    skill_file: SKILL.md
+  claude:
+    command_name: ext:testimonials
+    skill_file: SKILL.md
+
+requires:
+  extension_api: ">=1.0,<2.0"
